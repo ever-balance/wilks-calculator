@@ -1,0 +1,23 @@
+{
+  "name": "wilks-calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evelijn/wilks-calculator.git"
+  },
+  "author": "Evelijn Saaltink <evelijnsaaltink@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evelijn/wilks-calculator/issues"
+  },
+  "homepage": "https://github.com/evelijn/wilks-calculator#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
