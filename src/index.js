@@ -87,5 +87,3 @@ module.exports = {
 	calculateWilksScore: calculateWilksScore,
 	calculateWeightToLift: calculateWeightToLift
 };
-
-calculateWilksScore('f', 132, 660, 'imperial');
