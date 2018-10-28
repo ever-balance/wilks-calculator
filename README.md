@@ -1,7 +1,9 @@
 # wilks-calculator
 
-A library that will calculate the Wilks score a powerlifter has 
-based on their gender, body weight and lifted weight.
+This library calculates performs calculations with the Wilks coefficient, which is a coefficient
+used by the International Powerlifting Federation to determine the relative strength of competitors.
+They also use this coefficient for determining the qualification requirements for championships.
+
 
 [![Build Status](https://travis-ci.org/evelijn/wilks-calculator.svg?branch=master)](https://travis-ci.org/evelijn/wilks-calculator)
 [![npm version](https://badge.fury.io/js/wilks-calculator.svg)](https://badge.fury.io/js/wilks-calculator)
@@ -13,30 +15,57 @@ based on their gender, body weight and lifted weight.
 
 ## Usage
 
-```
-const calculateWilksScore = require('wilks-calculator')
+`const wilksCalculator = require('wilks-calculator')`
 
-calculateWilksScore(gender, bodyWeight, liftedWeight, [unitType]);
+```javascript
+wilksCalculator.calculateWilksScore(gender, bodyWeight, liftedWeight, [unitType]);
+```
+
+`gender (string)` - 'm' for Male and 'f' for Female
+`bodyWeight (number)`
+`liftedWeight (number)`
+`unitType (string)` - 'metric' or 'imperial' (optional)
+
+
+```javascript
+wilksCalculator.calculateWeightToLift(gender, bodyWeight, wilksScore, [unitType]);
 ```
 
 * `gender (string)` - 'm' for Male and 'f' for Female
 * `bodyWeight (number)`
-* `liftedWeight (number)`
+* `wilksScore (number)`
 * `unitType (string)` - 'metric' or 'imperial' (optional)
-
 
 ## Examples
 
-```
-
+### `calculateWilksScore`
+```javascript
 var femaleWilksScore = calculateWilksScore('f', 60, 300);
+// Returns 334.47
 
 var maleWilksScore = calculateWilksScore('m', 90, 500);
+// Returns 319.20
 
 var femaleImperialWilksScore = calculateWilksScore('f', 132, 660, 'imperial');
+// Returns 334.31
 
-var maleImperialWilksScore = calculateWilksScore('m', 200, 1100, 'imperial');
+var maleImperialWilksScore = calculateWilksScore('m', 176, 882, 'imperial');
+// Returns 273.49
+```
 
+### `calculateWeightToLift`
+```javascript
+var femaleTotal = calculateWeightToLift('f', 60, 350);
+// Returns 313.93 (kg)
+
+var maleTotal = calculateWeightToLift('m', 80, 350);
+// Returns 512.67 (kg)
+
+var femaleImperialTotal = calculateWeightToLift('f', 132, 660, 'imperial');
+// Returns 690.97 (lbs)
+
+var maleImperialTotal = calculateWeightToLift('m', 176, 350, 'imperial');
+// Returns 1128.74 (lbs)
 ```
 
 ## Tests
