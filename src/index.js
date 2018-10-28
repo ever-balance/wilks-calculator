@@ -23,7 +23,7 @@ module.exports.calculateWilksScore = function (gender, bodyWeight, liftedWeight,
     	throw new Error('Missing parameters, please fill in gender, body weight and weight.');
 	}
 
-	validateInput(gender, bodyWeight, liftedWeight, unitType);
+	validateInput({gender: gender, bodyWeight: bodyWeight, liftedWeight: liftedWeight, unitType: unitType});
 
 	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
 
@@ -34,6 +34,8 @@ module.exports.calculateWeightToLift = function (gender, bodyWeight, wilksScore,
 	if (!gender || !bodyWeight || !wilksScore) {
 		throw new Error('Missing parameters, please fill in gender, body weight and Wilks score.');
 	}
+
+	validateInput({gender: gender, bodyWeight: bodyWeight, wilksScore: wilksScore, unitType: unitType});
 
 	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
 
@@ -55,7 +57,7 @@ function calculateCoefficient(gender, bodyWeight, unitType) {
 	return 500 / coeff;
 }
 
-function validateInput (gender, bodyWeight, liftedWeight, unitType) {
+function validateInput ({gender, bodyWeight, liftedWeight = 0, wilksScore = 0, unitType}) {
 	if (typeof gender !== 'string' || (gender !== 'm' && gender !== 'f')) {
 		throw new Error('Gender is not valid. Please select m for Male or f for Female.')
 	}
@@ -66,6 +68,10 @@ function validateInput (gender, bodyWeight, liftedWeight, unitType) {
 
 	if (typeof liftedWeight !== 'number' || liftedWeight < 0) {
 		throw new Error('Weight is not valid.');
+	}
+
+	if (typeof wilksScore !== 'number' || wilksScore < 0) {
+		throw new Error('Wilks score is not valid.');
 	}
 
 	if (typeof unitType !== 'string' || (unitType !== 'metric' && unitType !== 'imperial')) {
