@@ -30,14 +30,20 @@ function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metr
 		bodyWeight /= 2.20462262185;
 	}
 
+	let coeff = calculateCoefficient(gender, bodyWeight);
+
+    return liftedWeight * coeff;
+}
+
+function calculateCoefficient(gender, bodyWeight) {
 	let coeff = 0;
-    let values = gender === 'm' ? maleValues : femaleValues;
+	let values = gender === 'm' ? maleValues : femaleValues;
 
-    for (let i = 0; i <= 5; i++) {
-        coeff += (values[i]  * (bodyWeight ** i));
-    }
+	for (let i = 0; i <= 5; i++) {
+		coeff += (values[i]  * (bodyWeight ** i));
+	}
 
-    return liftedWeight * (500 / coeff);
+	return 500 / coeff;
 }
 
 function validateInput (gender, bodyWeight, liftedWeight, unitType) {
