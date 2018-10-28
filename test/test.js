@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const calculateWilksScore = require('../index');
+const calculateWilksScore = require('../src/index');
 
 describe('Wilks Calculator', function () {
 	describe('Results', function() {
