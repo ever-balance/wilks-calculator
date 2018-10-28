@@ -3,6 +3,10 @@
 A library that will calculate the Wilks score a powerlifter has 
 based on their gender, body weight and lifted weight.
 
+[![Build Status](https://travis-ci.org/evelijn/wilks-calculator.svg?branch=master)](https://travis-ci.org/evelijn/wilks-calculator)
+[![npm version](https://badge.fury.io/js/wilks-calculator.svg)](https://badge.fury.io/js/wilks-calculator)
+[![Coverage Status](https://coveralls.io/repos/github/evelijn/wilks-calculator/badge.svg?branch=master)](https://coveralls.io/github/evelijn/wilks-calculator?branch=master)
+
 ## Installation
 
 `npm install wilks-calculator`
