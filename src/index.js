@@ -18,6 +18,16 @@ const femaleValues = [
     -9.054E-08
 ];
 
+/**
+ * Returns a Wilks score based on the body weight of the lifter and the weight they have lifted.
+ *
+ * @param gender The gender of the lifter the wilks score is calculated for ('m' for male, 'f' for female).
+ * @param bodyWeight The body weight of the lifter the wilks score is calculated for.
+ * @param liftedWeight The weight the lifter has lifted.
+ * @param unitType Optional parameter for lifters using the imperial unit system ('kg' is default, 'imperial' for the imperial system).
+ *
+ * @returns The Wilks score.
+ */
 function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metric') {
     if (!gender || !bodyWeight || !liftedWeight) {
     	throw new Error('Missing parameters, please fill in gender, body weight and weight.');
@@ -34,6 +44,16 @@ function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metr
     return liftedWeight * coeff;
 }
 
+/**
+ * Returns a total amount of weight to lift based on the body weight of the lifter and the preferred Wilks score.
+ *
+ * @param gender The gender of the lifter the wilks score is calculated for ('m' for male, 'f' for female).
+ * @param bodyWeight The body weight of the lifter the wilks score is calculated for.
+ * @param wilksScore The preferred Wilks score.
+ * @param unitType Optional parameter for lifters using the imperial unit system ('kg' is default, 'imperial' for the imperial system).
+ *
+ * @returns The total amount of weight to lift.
+ */
 function calculateWeightToLift (gender, bodyWeight, wilksScore, unitType = 'metric') {
 	if (!gender || !bodyWeight || !wilksScore) {
 		throw new Error('Missing parameters, please fill in gender, body weight and Wilks score.');
