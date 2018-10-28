@@ -25,12 +25,7 @@ module.exports.calculateWilksScore = function (gender, bodyWeight, liftedWeight,
 
 	validateInput(gender, bodyWeight, liftedWeight, unitType);
 
-    if (unitType === 'imperial') {
-		liftedWeight /= 2.20462262185;
-		bodyWeight /= 2.20462262185;
-	}
-
-	let coeff = calculateCoefficient(gender, bodyWeight);
+	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
 
     return liftedWeight * coeff;
 };
@@ -40,18 +35,18 @@ module.exports.calculateWeightToLift = function (gender, bodyWeight, wilksScore,
 		throw new Error('Missing parameters, please fill in gender, body weight and Wilks score.');
 	}
 
+	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
+
+	return unitType === 'imperial' ? 2.20462262185 * (wilksScore / coeff) : wilksScore / coeff;
+};
+
+function calculateCoefficient(gender, bodyWeight, unitType) {
+	let coeff = 0;
+	let values = gender === 'm' ? maleValues : femaleValues;
+
 	if (unitType === 'imperial') {
 		bodyWeight /= 2.20462262185;
 	}
-
-	let coeff = calculateCoefficient(gender, bodyWeight);
-
-	return wilksScore / coeff;
-};
-
-function calculateCoefficient(gender, bodyWeight) {
-	let coeff = 0;
-	let values = gender === 'm' ? maleValues : femaleValues;
 
 	for (let i = 0; i <= 5; i++) {
 		coeff += (values[i]  * (bodyWeight ** i));
