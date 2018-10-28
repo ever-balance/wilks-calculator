@@ -21,10 +21,10 @@ They also use this coefficient for determining the qualification requirements fo
 wilksCalculator.calculateWilksScore(gender, bodyWeight, liftedWeight, [unitType]);
 ```
 
-`gender (string)` - 'm' for Male and 'f' for Female
-`bodyWeight (number)`
-`liftedWeight (number)`
-`unitType (string)` - 'metric' or 'imperial' (optional)
+* `gender (string)` - 'm' for Male and 'f' for Female
+* `bodyWeight (number)`
+* `liftedWeight (number)`
+* `unitType (string)` - 'metric' or 'imperial' (optional)
 
 
 ```javascript
