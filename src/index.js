@@ -18,7 +18,7 @@ const femaleValues = [
     -9.054E-08
 ];
 
-function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metric') {
+module.exports.calculateWilksScore = function (gender, bodyWeight, liftedWeight, unitType = 'metric') {
     if (!gender || !bodyWeight || !liftedWeight) {
     	throw new Error('Missing parameters, please fill in gender, body weight and weight.');
 	}
@@ -33,7 +33,21 @@ function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metr
 	let coeff = calculateCoefficient(gender, bodyWeight);
 
     return liftedWeight * coeff;
-}
+};
+
+module.exports.calculateWeightToLift = function (gender, bodyWeight, wilksScore, unitType = 'metric') {
+	if (!gender || !bodyWeight || !wilksScore) {
+		throw new Error('Missing parameters, please fill in gender, body weight and Wilks score.');
+	}
+
+	if (unitType === 'imperial') {
+		bodyWeight /= 2.20462262185;
+	}
+
+	let coeff = calculateCoefficient(gender, bodyWeight);
+
+	return wilksScore / coeff;
+};
 
 function calculateCoefficient(gender, bodyWeight) {
 	let coeff = 0;
@@ -63,5 +77,3 @@ function validateInput (gender, bodyWeight, liftedWeight, unitType) {
 		throw new Error('Unit type is not valid. Please select metric or imperial.');
 	}
 }
-
-module.exports = calculateWilksScore;
