@@ -23,6 +23,10 @@ function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metr
     	throw new Error('Missing parameters, please fill in gender, body weight and weight.');
 	}
 
+	if (unitType === 'imperial') {
+		liftedWeight /= 2.20462262185;
+	}
+
 	validateInput({gender: gender, bodyWeight: bodyWeight, liftedWeight: liftedWeight, unitType: unitType});
 
 	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
@@ -83,3 +87,5 @@ module.exports = {
 	calculateWilksScore: calculateWilksScore,
 	calculateWeightToLift: calculateWeightToLift
 };
+
+calculateWilksScore('f', 132, 660, 'imperial');
