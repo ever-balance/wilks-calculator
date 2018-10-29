@@ -79,16 +79,16 @@ var maleImperialTotal = calculateWeightToLift('m', 176, 350, 'imperial');
 
 ### `calculateNeededBodyWeight`
 ```javascript
-var femaleTotal = calculateNeededBodyWeight('f', 300, 350);
+var femaleBodyWeight = calculateNeededBodyWeight('f', 300, 350);
 // Returns 56.6 (kg)
 
-var maleTotal = calculateNeededBodyWeight('m', 600, 350);
+var maleBodyWeight = calculateNeededBodyWeight('m', 600, 350);
 // Returns 113.2 (kg)
 
-var femaleImperialTotal = calculateNeededBodyWeight('f', 690, 660, 'imperial');
+var femaleImperialBodyWeight = calculateNeededBodyWeight('f', 690, 660, 'imperial');
 // Returns 131.62 (lbs)
 
-var maleImperialTotal = calculateNeededBodyWeight('m', 1128, 350, 'imperial');
+var maleImperialBodyWeight = calculateNeededBodyWeight('m', 1128, 350, 'imperial');
 // Returns 175.70 (lbs)
 ```
 
