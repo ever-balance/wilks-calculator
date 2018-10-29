@@ -73,6 +73,16 @@ function calculateWeightToLift (gender, bodyWeight, wilksScore, unitType = 'metr
 	return unitType === 'imperial' ? imperial * (wilksScore / coeff) : wilksScore / coeff;
 }
 
+/**
+ * Returns the needed body weight based on the total amount of weight to lift and the preferred Wilks score.
+ *
+ * @param gender {string} The gender of the lifter the wilks score is calculated for ('m' for male, 'f' for female).
+ * @param liftedWeight {number} liftedWeight {number} The weight the lifter has lifted.
+ * @param wilksScore {number} The preferred Wilks score.
+ * @param unitType {string} Optional parameter for lifters using the imperial unit system ('kg' is default, 'imperial' for the imperial system).
+ *
+ * @returns {number} The total amount of weight to lift.
+ */
 function calculateNeededBodyWeight (gender, liftedWeight, wilksScore, unitType = 'metric') {
 	if (!gender || !liftedWeight || !wilksScore) {
 		throw new Error('Missing parameters, please fill in gender, lifted weight and Wilks score.');
@@ -96,10 +106,30 @@ function calculateNeededBodyWeight (gender, liftedWeight, wilksScore, unitType =
 	return unitType === 'imperial' ? imperial * bodyWeight : bodyWeight;
 }
 
+/**
+ * A helper function to determine the difference between the calculated coefficient and the input.
+ *
+ * @param a {number}
+ * @param b {number}
+ *
+ * @returns {number} The absolute difference between a and b.
+ *
+ * @private
+ */
 function calculateDifference(a, b) {
-	return Math.abs (a - b);
+	return Math.abs(a - b);
 }
 
+/**
+ * Calculates the coefficient based on the body weight and the gender.
+ *
+ * @param gender {string}
+ * @param bodyWeight {number}
+ *
+ * @returns {number} The coefficient.
+ *
+ * @private
+ */
 function calculateCoefficient(gender, bodyWeight) {
 	let coeff = 0;
 	let values = gender === 'm' ? maleValues : femaleValues;
@@ -111,6 +141,17 @@ function calculateCoefficient(gender, bodyWeight) {
 	return coeff;
 }
 
+/**
+ * A helper function to validate the input.
+ *
+ * @param gender {string}
+ * @param bodyWeight {number}
+ * @param liftedWeight {number}
+ * @param wilksScore {number}
+ * @param unitType {string}
+ *
+ * @private
+ */
 function validateInput ({gender, bodyWeight = 0, liftedWeight = 0, wilksScore = 0, unitType}) {
 	if (typeof gender !== 'string' || (gender !== 'm' && gender !== 'f')) {
 		throw new Error('Gender is not valid. Please select m for Male or f for Female.')
@@ -138,5 +179,3 @@ module.exports = {
 	calculateWeightToLift: calculateWeightToLift,
 	calculateNeededBodyWeight: calculateNeededBodyWeight
 };
-
-console.log(calculateNeededBodyWeight('m', 1128, 350, 'imperial'));
