@@ -1,22 +1,24 @@
 'use strict';
 
 const maleValues = [
-    -216.0475144,
-    16.2606339,
-    -0.002388645,
-    -0.00113732,
-    7.01863E-06,
-    -1.291E-08
+	-216.0475144,
+	16.2606339,
+	-0.002388645,
+	-0.00113732,
+	7.01863E-06,
+	-1.291E-08
 ];
 
 const femaleValues = [
-    594.31747775582,
-    -27.23842536447,
-    0.82112226871,
-    -0.00930733913,
-    4.731582E-05,
-    -9.054E-08
+	594.31747775582,
+	-27.23842536447,
+	0.82112226871,
+	-0.00930733913,
+	4.731582E-05,
+	-9.054E-08
 ];
+
+const imperial = 2.20462262185;
 
 /**
  * Returns a Wilks score based on the body weight of the lifter and the weight they have lifted.
@@ -34,12 +36,13 @@ function calculateWilksScore (gender, bodyWeight, liftedWeight, unitType = 'metr
 	}
 
 	if (unitType === 'imperial') {
-		liftedWeight /= 2.20462262185;
+		liftedWeight /= imperial;
+		bodyWeight /= imperial;
 	}
 
 	validateInput({gender: gender, bodyWeight: bodyWeight, liftedWeight: liftedWeight, unitType: unitType});
 
-	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
+	let coeff = 500 / calculateCoefficient(gender, bodyWeight);
 
     return liftedWeight * coeff;
 }
@@ -61,27 +64,54 @@ function calculateWeightToLift (gender, bodyWeight, wilksScore, unitType = 'metr
 
 	validateInput({gender: gender, bodyWeight: bodyWeight, wilksScore: wilksScore, unitType: unitType});
 
-	let coeff = calculateCoefficient(gender, bodyWeight, unitType);
+	if (unitType === 'imperial') {
+		bodyWeight /= imperial;
+	}
 
-	return unitType === 'imperial' ? 2.20462262185 * (wilksScore / coeff) : wilksScore / coeff;
+	let coeff = 500 / calculateCoefficient(gender, bodyWeight);
+
+	return unitType === 'imperial' ? imperial * (wilksScore / coeff) : wilksScore / coeff;
 }
 
-function calculateCoefficient(gender, bodyWeight, unitType) {
+function calculateNeededBodyWeight (gender, liftedWeight, wilksScore, unitType = 'metric') {
+	if (!gender || !liftedWeight || !wilksScore) {
+		throw new Error('Missing parameters, please fill in gender, lifted weight and Wilks score.');
+	}
+
+	validateInput({gender: gender, liftedWeight: liftedWeight, wilksScore: wilksScore, unitType: unitType});
+
+	if (unitType === 'imperial') {
+		liftedWeight /= imperial;
+	}
+
+	let coeff = 500 / (wilksScore / liftedWeight);
+	let bodyWeight = 0.0;
+	let result = 0.0;
+
+	do {
+		bodyWeight += 0.1;
+		result = calculateCoefficient(gender, bodyWeight);
+	} while (calculateDifference(coeff, result) > 0.5);
+
+	return unitType === 'imperial' ? imperial * bodyWeight : bodyWeight;
+}
+
+function calculateDifference(a, b) {
+	return Math.abs (a - b);
+}
+
+function calculateCoefficient(gender, bodyWeight) {
 	let coeff = 0;
 	let values = gender === 'm' ? maleValues : femaleValues;
 
-	if (unitType === 'imperial') {
-		bodyWeight /= 2.20462262185;
-	}
-
 	for (let i = 0; i <= 5; i++) {
-		coeff += (values[i]  * (bodyWeight ** i));
+		coeff += i === 0 ? values[i] : (values[i]  * (bodyWeight ** i));
 	}
 
-	return 500 / coeff;
+	return coeff;
 }
 
-function validateInput ({gender, bodyWeight, liftedWeight = 0, wilksScore = 0, unitType}) {
+function validateInput ({gender, bodyWeight = 0, liftedWeight = 0, wilksScore = 0, unitType}) {
 	if (typeof gender !== 'string' || (gender !== 'm' && gender !== 'f')) {
 		throw new Error('Gender is not valid. Please select m for Male or f for Female.')
 	}
@@ -105,5 +135,8 @@ function validateInput ({gender, bodyWeight, liftedWeight = 0, wilksScore = 0, u
 
 module.exports = {
 	calculateWilksScore: calculateWilksScore,
-	calculateWeightToLift: calculateWeightToLift
+	calculateWeightToLift: calculateWeightToLift,
+	calculateNeededBodyWeight: calculateNeededBodyWeight
 };
+
+console.log(calculateNeededBodyWeight('m', 1128, 350, 'imperial'));
