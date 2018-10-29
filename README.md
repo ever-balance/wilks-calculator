@@ -36,6 +36,15 @@ wilksCalculator.calculateWeightToLift(gender, bodyWeight, wilksScore, [unitType]
 * `wilksScore (number)`
 * `unitType (string)` - 'metric' or 'imperial' (optional)
 
+```javascript
+wilksCalculator.calculateNeededBodyWeight(gender, liftedWeight, wilksScore, [unitType]);
+```
+
+* `gender (string)` - 'm' for Male and 'f' for Female
+* `liftedWeight (number)`
+* `wilksScore (number)`
+* `unitType (string)` - 'metric' or 'imperial' (optional)
+
 ## Examples
 
 ### `calculateWilksScore`
@@ -66,6 +75,21 @@ var femaleImperialTotal = calculateWeightToLift('f', 132, 660, 'imperial');
 
 var maleImperialTotal = calculateWeightToLift('m', 176, 350, 'imperial');
 // Returns 1128.74 (lbs)
+```
+
+### `calculateNeededBodyWeight`
+```javascript
+var femaleTotal = calculateNeededBodyWeight('f', 300, 350);
+// Returns 56.6 (kg)
+
+var maleTotal = calculateNeededBodyWeight('m', 600, 350);
+// Returns 113.2 (kg)
+
+var femaleImperialTotal = calculateNeededBodyWeight('f', 690, 660, 'imperial');
+// Returns 131.62 (lbs)
+
+var maleImperialTotal = calculateNeededBodyWeight('m', 1128, 350, 'imperial');
+// Returns 175.70 (lbs)
 ```
 
 ## Tests
