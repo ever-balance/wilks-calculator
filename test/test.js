@@ -143,4 +143,74 @@ describe('Wilks Calculator', function () {
 			});
 		});
 	});
+
+	describe('calculateNeededBodyWeight', function() {
+		describe('Results', function() {
+			it('should return a number', function(){
+				expect(wilksCalculator.calculateNeededBodyWeight('m', 600, 350)).to.be.a('number');
+			});
+
+			it('should return 113.2 for a male lifter', function(){
+				expect(wilksCalculator.calculateNeededBodyWeight('m', 600, 350)).to.be.closeTo(113.2, 0.01);
+			});
+
+			it('should return 56.6 for a female lifter', function(){
+				expect(wilksCalculator.calculateNeededBodyWeight('f', 300, 350)).to.be.closeTo(56.6, 0.01);
+			});
+
+			it('should return 175.70 for a male lifter when the unit type is imperial', function(){
+				expect(wilksCalculator.calculateNeededBodyWeight('m', 1128, 350, 'imperial')).to.be.closeTo(175.70, 0.01);
+			});
+
+			it('should return 131.62 for a female lifter when the unit type is imperial', function(){
+				expect(wilksCalculator.calculateNeededBodyWeight('f', 690, 350, 'imperial')).to.be.closeTo(131.62, 0.01);
+			});
+		});
+
+		describe('Errors', function() {
+			it('should throw an error when no parameters have been entered', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight() }).to.throw();
+			});
+
+			it('should throw an error when no gender has been entered', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight(80, 350) }).to.throw();
+			});
+
+			it('should throw an error when no wilks score has been entered', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 80) }).to.throw();
+			});
+
+			it('should throw an error when the entered gender is not a string', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight(500, 80, 350) }).to.throw();
+			});
+
+			it('should throw an error when the entered gender is invalid', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('string', 80, 350) }).to.throw();
+			});
+
+			it('should throw an error when the entered lifted weight is not a number', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 'string', 350) }).to.throw();
+			});
+
+			it('should throw an error when the entered lifted weight is a negative number', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', -80, 350) }).to.throw();
+			});
+
+			it('should throw an error when the entered wilks score is not a number', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 80, 'string') }).to.throw();
+			});
+
+			it('should throw an error when the entered wilks score is a negative number', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 80, -350) }).to.throw();
+			});
+
+			it('should throw an error when the entered unit type is not a string', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 80, 350, 400) }).to.throw();
+			});
+
+			it('should throw an error when the entered unit type is invalid', function() {
+				expect(function () { wilksCalculator.calculateNeededBodyWeight('m', 80, 350, 'string') }).to.throw();
+			});
+		});
+	});
 });
