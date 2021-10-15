@@ -5,9 +5,9 @@ used by the International Powerlifting Federation to determine the relative stre
 They also use this coefficient for determining the qualification requirements for championships.
 
 
-[![Build Status](https://travis-ci.org/evelijn/wilks-calculator.svg?branch=master)](https://travis-ci.org/evelijn/wilks-calculator)
+[![Build Status](https://travis-ci.org/CaveMobster/wilks-calculator.svg?branch=master)](https://travis-ci.org/CaveMobster/wilks-calculator)
 [![npm version](https://badge.fury.io/js/wilks-calculator.svg)](https://badge.fury.io/js/wilks-calculator)
-[![Coverage Status](https://coveralls.io/repos/github/evelijn/wilks-calculator/badge.svg?branch=master)](https://coveralls.io/github/evelijn/wilks-calculator?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CaveMobster/wilks-calculator/badge.svg)](https://coveralls.io/github/CaveMobster/wilks-calculator)
 
 ## Installation
 

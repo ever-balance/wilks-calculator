@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evelijn/wilks-calculator.git"
+    "url": "git+https://github.com/CaveMobster/wilks-calculator.git"
   },
-  "author": "Evelijn Saaltink <evelijnsaaltink@gmail.com>",
+  "author": "CaveMobster <cavemobster@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/evelijn/wilks-calculator/issues"
+    "url": "https://github.com/CaveMobster/wilks-calculator/issues"
   },
-  "homepage": "https://github.com/evelijn/wilks-calculator#readme",
+  "homepage": "https://github.com/CaveMobster/wilks-calculator#readme",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0"
+    "chai": "^4.3.4",
+    "coveralls": "^3.1.1",
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0"
   },
   "keywords": [
     "wilks",
